@@ -2,7 +2,9 @@ import React from 'react'
 import PokemonCollection from './PokemonCollection'
 import PokemonForm from './PokemonForm'
 import Search from './Search'
-import { Container } from 'semantic-ui-react'
+import {Container} from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {onSearchTermChange} from '../redux/actions'
 
 class PokemonPage extends React.Component {
   render() {
@@ -12,7 +14,7 @@ class PokemonPage extends React.Component {
         <br />
         <PokemonForm />
         <br />
-        <Search onChange={() => console.log('🤔')} />
+        <Search onChange={e => this.props.onSearchTermChange(e.target.value)} />
         <br />
         <PokemonCollection />
       </Container>
@@ -20,4 +22,10 @@ class PokemonPage extends React.Component {
   }
 }
 
-export default PokemonPage
+const mapDispatchToProps = dispatch => {
+  return {
+    onSearchTermChange: text => dispatch(onSearchTermChange(text))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PokemonPage)
