@@ -54,3 +54,54 @@ export const onSearchTermChange = text => {
   }
 }
 // end of search term
+
+// add a pokemon
+export const addAPokemon = pokemonData => {
+  return dispatch => {
+    dispatch(addAPokemonStart())
+
+    axios({
+      url: 'pokemon',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      data: {
+        ...pokemonData
+      }
+    })
+    .then(addedPokemon => {
+      dispatch(addAPokemonSuccess(addedPokemon.data))
+    })
+    .catch(error => {
+      dispatch(addAPokemonFail(error))
+    })
+  }
+}
+
+const addAPokemonStart = () => {
+  return {
+    type: actionTypes.ADD_POKEMON_START,
+    isAddingAPokemon: true,
+    addAPokemonError: null
+  }
+}
+
+const addAPokemonSuccess = addedPokemon => {
+  return {
+    type: actionTypes.ADD_POKEMON_SUCCESS,
+    isAddingAPokemon: false,
+    addAPokemonError: null,
+    addedPokemon: addedPokemon
+  }
+}
+
+const addAPokemonFail = error => {
+  return {
+    type: actionTypes.ADD_POKEMON_FAIL,
+    isAddingAPokemon: false,
+    addAPokemonError: error
+  }
+}
+// end of add a pokemon
