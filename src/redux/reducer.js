@@ -7,7 +7,9 @@ const initialState = {
     isLoadingPokedex: false,
     pokedexError: null,
     isAddingAPokemon: false,
-    addAPokemonError: null
+    addAPokemonError: null,
+    isEditingAPokemon: false,
+    editAPokemonError: null
   },
   searchTerm: {
     searchTerm: ''
@@ -78,6 +80,37 @@ const addAPokemonFail = (state, action) => {
   })
 }
 
+const editAPokemonStart = (state, action) => {
+  return updateObject(state, {
+    isEditingAPokemon: action.isEditingAPokemon,
+    editAPokemonError: action.editAPokemonError
+  })
+}
+
+const editAPokemonSuccess = (state, action) => {
+  let currentPokedex = JSON.parse(JSON.stringify(state.pokedex))
+  let updatedPokedex = currentPokedex.map(pokemon => {
+    if (pokemon.id !== action.editedPokemon.id) {
+      return pokemon
+    } else {
+      return action.editedPokemon
+    }
+  })
+
+  return updateObject(state, {
+    isEditingAPokemon: action.isEditingAPokemon,
+    editAPokemonError: action.editAPokemonError,
+    pokedex: updatedPokedex
+  })
+}
+
+const editAPokemonFail = (state, action) => {
+  return updateObject(state, {
+    isEditingAPokemon: action.isEditingAPokemon,
+    editAPokemonError: action.editAPokemonError
+  })
+}
+
 const pokedexReducer = (state = initialState.pokedex, action) => {
   switch (action.type) {
     case actionTypes.FETCH_POKEDEX_START: return fetchPokedexStart(state, action)
@@ -86,6 +119,9 @@ const pokedexReducer = (state = initialState.pokedex, action) => {
     case actionTypes.ADD_POKEMON_START: return addAPokemonStart(state, action)
     case actionTypes.ADD_POKEMON_SUCCESS: return addAPokemonSuccess(state, action)
     case actionTypes.ADD_POKEMON_FAIL: return addAPokemonFail(state, action)
+    case actionTypes.EDIT_POKEMON_START: return editAPokemonStart(state, action)
+    case actionTypes.EDIT_POKEMON_SUCCESS: return editAPokemonSuccess(state, action)
+    case actionTypes.EDIT_POKEMON_FAIL: return editAPokemonFail(state, action)
     default: return state
   }
 }

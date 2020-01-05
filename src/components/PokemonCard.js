@@ -1,12 +1,16 @@
 import React from 'react'
 import {Card} from 'semantic-ui-react'
 import {useState} from 'react'
+import {withRouter} from 'react-router-dom'
 
-const PokemonCard = ({pokemon}) => {
+const PokemonCard = ({pokemon, history}) => {
   const [showFront, setShowFront] = useState(true)
 
   return (
-    <Card onMouseOver={() => setShowFront(!showFront)}>
+    <Card
+      onMouseEnter={() => setShowFront(!showFront)}
+      onClick={() => history.push(`/pokedex/${pokemon.id}`)}
+    >
       <div>
         <div className="image">
           <img alt={pokemon.name} src={showFront ? pokemon.sprites.front : pokemon.sprites.back}/>
@@ -25,4 +29,4 @@ const PokemonCard = ({pokemon}) => {
   )
 }
 
-export default PokemonCard
+export default withRouter(PokemonCard)

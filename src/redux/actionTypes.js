@@ -17,3 +17,9 @@ export const ADD_POKEMON_FAIL = "ADD_POKEMON_FAIL"
 // sort option
 export const SORT_OPTION_WAS_CHANGED = 'SORT_OPTION_WAS_CHANGED'
 // end of sort option
+
+// edit a pokemon
+export const EDIT_POKEMON_START = "EDIT_POKEMON_START"
+export const EDIT_POKEMON_SUCCESS = "EDIT_POKEMON_SUCCESS"
+export const EDIT_POKEMON_FAIL = "EDIT_POKEMON_FAIL"
+// end of edit a pokemon

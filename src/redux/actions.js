@@ -114,3 +114,54 @@ export const onSortOptionChange = sortOption => {
   }
 }
 // end of sort option
+
+// edit a pokemon
+export const editAPokemon = (dataToEdit, id) => {
+  return dispatch => {
+    dispatch(editAPokemonStart())
+
+    axios({
+      url: `/pokemon/${id}`,
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      data: {
+        ...dataToEdit
+      }
+    })
+    .then(response => {
+      dispatch(editAPokemonSuccess(response.data))
+    })
+    .catch(error => {
+      dispatch(editAPokemonFail(error))
+    })
+  }
+}
+
+const editAPokemonStart = () => {
+  return {
+    type: actionTypes.EDIT_POKEMON_START,
+    isEditingAPokemon: true,
+    editAPokemonError: null
+  }
+}
+
+const editAPokemonSuccess = editedPokemon => {
+  return {
+    type: actionTypes.EDIT_POKEMON_SUCCESS,
+    isEditingAPokemon: false,
+    editAPokemonError: null,
+    editedPokemon: editedPokemon
+  }
+}
+
+const editAPokemonFail = error => {
+  return {
+    type: actionTypes.EDIT_POKEMON_FAIL,
+    isEditingAPokemon: false,
+    editAPokemonError: error
+  }
+}
+// end of edit a pokemon
