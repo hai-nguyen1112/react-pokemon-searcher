@@ -11,11 +11,26 @@ class PokemonCollection extends React.Component {
   }
 
   render() {
-    const {pokedex, searchTerm} = this.props
+    const {pokedex, searchTerm, sortOption} = this.props
 
     let pokemonCards
     if (!isEmpty(pokedex)) {
-      pokemonCards = pokedex.filter(pokemon => pokemon.name.includes(searchTerm)).map(pokemon => <PokemonCard key={pokemon.id} pokemon={pokemon} />)
+      pokemonCards
+      =
+      pokedex
+      .filter(pokemon => pokemon.name.includes(searchTerm))
+      .sort(
+        sortOption.value === 'sort-by-name'
+        ?
+        (a, b) => a.name.localeCompare(b.name)
+        :
+        sortOption.value === 'sort-by-hp'
+        ?
+        (a, b) => a.stats.find(stat => stat.name === 'hp').value - b.stats.find(stat => stat.name === 'hp').value
+        :
+        () => null
+      )
+      .map(pokemon => <PokemonCard key={pokemon.id} pokemon={pokemon} />)
     }
 
     return (
@@ -29,7 +44,8 @@ class PokemonCollection extends React.Component {
 const mapStateToProps = state => {
   return {
     pokedex: state.pokedex.pokedex,
-    searchTerm: state.searchTerm.searchTerm
+    searchTerm: state.searchTerm.searchTerm,
+    sortOption: state.sortOption.sortOption
   }
 }
 

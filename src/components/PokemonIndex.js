@@ -5,6 +5,7 @@ import Search from './Search'
 import {Container} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {onSearchTermChange} from '../redux/actions'
+import Sort from './Sort'
 
 class PokemonPage extends React.Component {
   render() {
@@ -15,6 +16,9 @@ class PokemonPage extends React.Component {
         <PokemonForm />
         <br />
         <Search onChange={e => this.props.onSearchTermChange(e.target.value)} />
+        <br />
+        <Sort />
+        <br />
         <br />
         <PokemonCollection />
       </Container>

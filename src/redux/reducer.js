@@ -11,6 +11,13 @@ const initialState = {
   },
   searchTerm: {
     searchTerm: ''
+  },
+  sortOption: {
+    sortOption: {
+      key: 'choose-a-sort-option',
+      text: 'choose-a-sort-option',
+      value: 'choose-a-sort-option'
+    }
   }
 }
 
@@ -98,9 +105,25 @@ const searchTermReducer = (state = initialState.searchTerm, action) => {
 }
 // end of search term reducer
 
+// sort option reducer
+const onSortOptionChange = (state, action) => {
+  return updateObject(state, {
+    sortOption: action.sortOption
+  })
+}
+
+const sortOptionReducer = (state = initialState.sortOption, action) => {
+  switch (action.type) {
+    case actionTypes.SORT_OPTION_WAS_CHANGED: return onSortOptionChange(state, action)
+    default: return state
+  }
+}
+// end of sort option reducer
+
 const appReducers = combineReducers({
   pokedex: pokedexReducer,
-  searchTerm: searchTermReducer
+  searchTerm: searchTermReducer,
+  sortOption: sortOptionReducer
 })
 
 const rootReducer = (state, action) => {

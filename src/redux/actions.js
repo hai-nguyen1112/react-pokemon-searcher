@@ -105,3 +105,12 @@ const addAPokemonFail = error => {
   }
 }
 // end of add a pokemon
+
+// sort option
+export const onSortOptionChange = sortOption => {
+  return {
+    type: actionTypes.SORT_OPTION_WAS_CHANGED,
+    sortOption: sortOption
+  }
+}
+// end of sort option

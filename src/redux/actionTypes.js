@@ -13,3 +13,7 @@ export const ADD_POKEMON_START = "ADD_POKEMON_START"
 export const ADD_POKEMON_SUCCESS = "ADD_POKEMON_SUCCESS"
 export const ADD_POKEMON_FAIL = "ADD_POKEMON_FAIL"
 // end of add a pokemon
+
+// sort option
+export const SORT_OPTION_WAS_CHANGED = 'SORT_OPTION_WAS_CHANGED'
+// end of sort option
