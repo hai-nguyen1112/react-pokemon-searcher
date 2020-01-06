@@ -9,7 +9,9 @@ const initialState = {
     isAddingAPokemon: false,
     addAPokemonError: null,
     isEditingAPokemon: false,
-    editAPokemonError: null
+    editAPokemonError: null,
+    isDeletingAPokemon: false,
+    deleteAPokemonError: null
   },
   searchTerm: {
     searchTerm: ''
@@ -111,6 +113,31 @@ const editAPokemonFail = (state, action) => {
   })
 }
 
+const deleteAPokemonStart = (state, action) => {
+  return updateObject(state, {
+    isDeletingAPokemon: action.isDeletingAPokemon,
+    deleteAPokemonError: action.deleteAPokemonError
+  })
+}
+
+const deleteAPokemonSuccess = (state, action) => {
+  let currentPokedex = JSON.parse(JSON.stringify(state.pokedex))
+  let updatedPokedex = currentPokedex.filter(pokemon => pokemon.id !== action.deletedPokemonId)
+
+  return updateObject(state, {
+    isDeletingAPokemon: action.isDeletingAPokemon,
+    deleteAPokemonError: action.deleteAPokemonError,
+    pokedex: updatedPokedex
+  })
+}
+
+const deleteAPokemonFail = (state, action) => {
+  return updateObject(state, {
+    isDeletingAPokemon: action.isDeletingAPokemon,
+    deleteAPokemonError: action.deleteAPokemonError
+  })
+}
+
 const pokedexReducer = (state = initialState.pokedex, action) => {
   switch (action.type) {
     case actionTypes.FETCH_POKEDEX_START: return fetchPokedexStart(state, action)
@@ -122,6 +149,9 @@ const pokedexReducer = (state = initialState.pokedex, action) => {
     case actionTypes.EDIT_POKEMON_START: return editAPokemonStart(state, action)
     case actionTypes.EDIT_POKEMON_SUCCESS: return editAPokemonSuccess(state, action)
     case actionTypes.EDIT_POKEMON_FAIL: return editAPokemonFail(state, action)
+    case actionTypes.DELETE_POKEMON_START: return deleteAPokemonStart(state, action)
+    case actionTypes.DELETE_POKEMON_SUCCESS: return deleteAPokemonSuccess(state, action)
+    case actionTypes.DELETE_POKEMON_FAIL: return deleteAPokemonFail(state, action)
     default: return state
   }
 }

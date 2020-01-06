@@ -3,8 +3,14 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {Card, Image, Container, Button} from 'semantic-ui-react'
 import {isEmpty} from 'lodash'
+import {deleteAPokemon} from '../redux/actions'
 
-const ViewSinglePokemon = ({pokemon, history}) => {
+const ViewSinglePokemon = ({pokemon, history, deleteAPokemon}) => {
+  const onDeletePokemon = () => {
+    deleteAPokemon(pokemon.id)
+    history.push('/pokedex')
+  }
+
   return (
     <Container fluid style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       {
@@ -28,7 +34,7 @@ const ViewSinglePokemon = ({pokemon, history}) => {
             &nbsp;
             <Button onClick={() => history.push(`/pokedex/${pokemon.id}/edit`)}>Edit</Button>
             &nbsp;
-            <Button>Delete</Button>
+            <Button onClick={onDeletePokemon}>Delete</Button>
           </Card.Content>
         </Card>
       }
@@ -38,8 +44,14 @@ const ViewSinglePokemon = ({pokemon, history}) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    pokemon: state.pokedex.pokedex.find(pokemon => pokemon.id === parseInt(ownProps.match.params.id))
+    pokemon: state.pokedex.pokedex.find(pokemon => pokemon.id === parseInt(ownProps.match.params.id, 10))
   }
 }
 
-export default withRouter(connect(mapStateToProps)(ViewSinglePokemon))
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteAPokemon: id => dispatch(deleteAPokemon(id))
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewSinglePokemon))

@@ -17,13 +17,13 @@ const EditSinglePokemon = ({pokemon, history, editAPokemon}) => {
     dataToEdit['stats'] = [...pokemon.stats]
     dataToEdit['stats'].map(stat => {
       if (stat.name === 'hp') {
-        stat['value'] = parseInt(hp)
+        stat['value'] = parseInt(hp, 10)
         return stat
       } else {
         return stat
       }
     })
-    
+
     editAPokemon(dataToEdit, pokemon.id)
     history.push(`/pokedex/${pokemon.id}`)
   }
@@ -60,7 +60,7 @@ const EditSinglePokemon = ({pokemon, history, editAPokemon}) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    pokemon: state.pokedex.pokedex.find(pokemon => pokemon.id === parseInt(ownProps.match.params.id))
+    pokemon: state.pokedex.pokedex.find(pokemon => pokemon.id === parseInt(ownProps.match.params.id, 10))
   }
 }
 

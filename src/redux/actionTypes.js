@@ -23,3 +23,9 @@ export const EDIT_POKEMON_START = "EDIT_POKEMON_START"
 export const EDIT_POKEMON_SUCCESS = "EDIT_POKEMON_SUCCESS"
 export const EDIT_POKEMON_FAIL = "EDIT_POKEMON_FAIL"
 // end of edit a pokemon
+
+// delete a pokemon
+export const DELETE_POKEMON_START = "DELETE_POKEMON_START"
+export const DELETE_POKEMON_SUCCESS = "DELETE_POKEMON_SUCCESS"
+export const DELETE_POKEMON_FAIL = "DELETE_POKEMON_FAIL"
+// end of delete a pokemon

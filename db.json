@@ -32,7 +32,7 @@
           "name": "speed"
         },
         {
-          "value": 55,
+          "value": 60,
           "name": "hp"
         }
       ],
@@ -77,7 +77,7 @@
           "name": "speed"
         },
         {
-          "value": 80,
+          "value": 75,
           "name": "hp"
         }
       ],
